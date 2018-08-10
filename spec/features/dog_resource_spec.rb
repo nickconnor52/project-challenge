@@ -24,4 +24,16 @@ describe 'Dog resource', type: :feature do
     click_link "Delete #{dog.name}'s Profile"
     expect(Dog.count).to eq(0)
   end
+
+  it 'can associate an owner to a pup' do
+    user = User.create(name: 'Nick', email: 'nickconnor52@gmail.com', id: 1)
+    visit new_dog_path
+    fill_in 'Name', with: 'Speck'
+    fill_in 'Description', with: 'Just a dog'
+    fill_in 'Owner Email Address', with: 'nickconnor52@gmail.com'
+    attach_file 'Image', 'spec/fixtures/images/speck.jpg'
+    click_button 'Create Dog'
+    speck = Dog.find_by(name: 'Speck')
+    expect(speck.owner).to eq(user.id)
+  end
 end
