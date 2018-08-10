@@ -1,6 +1,7 @@
 <%= simple_form_for @dog do |f| %>
   <%= f.input :name %>
   <%= f.input :description, as: :text %>
+  <%= f.input :user, as: :text, label: 'Owner\'s Email:', placeholder: 'Optional' %>
   <%= f.input :image, as: :file %>
 
   <% if @dog.images.any? %>

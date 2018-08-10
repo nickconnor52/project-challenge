@@ -30,10 +30,10 @@ describe 'Dog resource', type: :feature do
     visit new_dog_path
     fill_in 'Name', with: 'Speck'
     fill_in 'Description', with: 'Just a dog'
-    fill_in 'Owner Email Address', with: 'nickconnor52@gmail.com'
+    fill_in 'Owner\'s Email:', with: 'nickconnor52@gmail.com'
     attach_file 'Image', 'spec/fixtures/images/speck.jpg'
     click_button 'Create Dog'
     speck = Dog.find_by(name: 'Speck')
-    expect(speck.owner).to eq(user.id)
+    expect(speck.user).to eq(user.id)
   end
 end
