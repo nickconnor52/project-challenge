@@ -26,7 +26,8 @@ describe 'Dog resource', type: :feature do
   end
 
   it 'can associate an owner to a pup' do
-    user = User.create(name: 'Nick', email: 'nickconnor52@gmail.com', id: 1)
+    create(:user)
+    user = User.first
     visit new_dog_path
     fill_in 'Name', with: 'Speck'
     fill_in 'Description', with: 'Just a dog'
@@ -34,6 +35,6 @@ describe 'Dog resource', type: :feature do
     attach_file 'Image', 'spec/fixtures/images/speck.jpg'
     click_button 'Create Dog'
     speck = Dog.find_by(name: 'Speck')
-    expect(speck.user).to eq(user.id)
+    expect(speck.user.id).to eq(user.id)
   end
 end
