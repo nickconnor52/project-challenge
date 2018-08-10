@@ -44,6 +44,7 @@ class DogsController < ApplicationController
   # PATCH/PUT /dogs/1.json
   def update
     respond_to do |format|
+      @dog.user = find_owner
       if @dog.update(dog_params)
         @dog.images.attach(params[:dog][:image]) if params[:dog][:image].present?
 
