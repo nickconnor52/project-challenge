@@ -25,6 +25,7 @@ class DogsController < ApplicationController
   # POST /dogs.json
   def create
     @dog = Dog.new(dog_params)
+    @dog.user = find_owner
 
     respond_to do |format|
       if @dog.save
@@ -70,7 +71,12 @@ class DogsController < ApplicationController
     def set_dog
       @dog = Dog.find(params[:id])
     end
-
+    
+    # Find owner by email from params
+    def find_owner
+      user = User.find_by(email: params[:dog][:user_email])
+    end
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def dog_params
       params.require(:dog).permit(:name, :description, :images)
