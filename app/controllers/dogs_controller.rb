@@ -75,7 +75,7 @@ class DogsController < ApplicationController
     
     # Find owner by email from params
     def find_owner
-      user = User.find_by(email: params[:dog][:user_email])
+      User.find_by(email: params[:dog][:user_email])
     end
     
     # Never trust parameters from the scary internet, only allow the white list through.
