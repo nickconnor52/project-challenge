@@ -8,13 +8,7 @@ class DogsController < ApplicationController
     dogs_per_page = 5
     page_index = params[:current_page].to_i || 1
 
-    # Determine the first index for dog element based on page & dog count
-    dog_index = (page_index - 1) * dogs_per_page
-    
-    # Populate the dogs based on current index and dogs per page
-    @current_dogs = @dogs[dog_index, dogs_per_page]
-
-    @total_pages = (@dogs.count.to_f / dogs_per_page).ceil
+    paginate(dogs_per_page, page_index)
   end
 
   # GET /dogs/1
@@ -94,6 +88,18 @@ class DogsController < ApplicationController
     # Determine if current user is the owner of the dog being edited
     def current_user_dog_owner?
       current_user.id == @dog.user_id
+    end
+
+    # Encapsulate the pagination logic
+    def paginate(items_per_page, current_page)
+      
+      # Determine the first index for dog element based on page & dog count
+      dog_index = (current_page - 1) * items_per_page
+      
+      # Populate the dogs based on current index and dogs per page
+      @current_dogs = @dogs[dog_index, items_per_page]
+
+      @total_pages = (@dogs.count.to_f / items_per_page).ceil
     end
     
     # Never trust parameters from the scary internet, only allow the white list through.
