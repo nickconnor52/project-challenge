@@ -19,6 +19,9 @@ class DogsController < ApplicationController
 
   # GET /dogs/1/edit
   def edit
+    if !current_user_dog_owner?
+      redirect_to "/dogs/#{@dog.id}"
+    end
   end
 
   # POST /dogs
@@ -76,6 +79,11 @@ class DogsController < ApplicationController
     # Find owner by email from params
     def find_owner
       User.find_by(email: params[:dog][:user_email])
+    end
+
+    # Determine if current user is the owner of the dog being edited
+    def current_user_dog_owner?
+      current_user.id == @dog.user_id
     end
     
     # Never trust parameters from the scary internet, only allow the white list through.
