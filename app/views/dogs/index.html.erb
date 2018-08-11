@@ -1,1 +1,4 @@
-<%= render partial: 'thumbnail', collection: @dogs, as: :dog %>
+<%= render partial: 'thumbnail', collection: @current_dogs, as: :dog %>
+<% (1..@total_pages).each do |i| %>
+    <%= link_to "#{i}", :current_page => i %>
+<% end %>

@@ -5,6 +5,16 @@ class DogsController < ApplicationController
   # GET /dogs.json
   def index
     @dogs = Dog.all
+    dogs_per_page = 5
+    page_index = params[:current_page].to_i || 1
+
+    # Determine the first index for dog element based on page & dog count
+    dog_index = (page_index - 1) * dogs_per_page
+    
+    # Populate the dogs based on current index and dogs per page
+    @current_dogs = @dogs[dog_index, dogs_per_page]
+
+    @total_pages = (@dogs.count.to_f / dogs_per_page).ceil
   end
 
   # GET /dogs/1
