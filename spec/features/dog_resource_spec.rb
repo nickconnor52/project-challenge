@@ -41,4 +41,10 @@ describe 'Dog resource', type: :feature do
     speck = Dog.find_by(name: 'Speck')
     expect(speck.user.id).to eq(@user.id)
   end
+
+  it 'cannot edit the profile of a dog that is not yours' do
+    dog = create(:dog, user_id: 2)
+    visit edit_dog_path(dog)
+    expect(page).to have_text("Delete Good Pup 12's Profile")
+  end
 end
