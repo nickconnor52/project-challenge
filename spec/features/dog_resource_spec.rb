@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 describe 'Dog resource', type: :feature do
+  include Devise::Test::IntegrationHelpers
+  before(:each) do
+    @user = create(:user)
+    sign_in @user
+  end
+    
   it 'can create a profile' do
     visit new_dog_path
     fill_in 'Name', with: 'Speck'
@@ -26,8 +32,6 @@ describe 'Dog resource', type: :feature do
   end
 
   it 'can associate an owner to a pup' do
-    create(:user)
-    user = User.first
     visit new_dog_path
     fill_in 'Name', with: 'Speck'
     fill_in 'Description', with: 'Just a dog'
@@ -35,6 +39,6 @@ describe 'Dog resource', type: :feature do
     attach_file 'Image', 'spec/fixtures/images/speck.jpg'
     click_button 'Create Dog'
     speck = Dog.find_by(name: 'Speck')
-    expect(speck.user.id).to eq(user.id)
+    expect(speck.user.id).to eq(@user.id)
   end
 end

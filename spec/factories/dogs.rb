@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :dog do
+    user_id 1
     sequence :name do |n|
       "Good Pup #{n}"
     end
