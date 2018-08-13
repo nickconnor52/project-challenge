@@ -1,7 +1,3 @@
-# Welcome
-
-This repository contains starter code for a technical assessment. The challenges can be done at home before coming in to discuss with the Bark team or can be done as a pairing exercise at the Bark office. Either way, we don't expect you to put more than an hour or two into coding. We recommend forking the repository and getting it running before starting the challenge if you choose the pairing approach.
-
 # Set up
 
 Fork this repository and clone locally
